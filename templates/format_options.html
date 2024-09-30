@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Formats</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <h2 class="available-formats">Available Formats</h2>
+
+        <!-- Displaying Video Formats (MP4) -->
+        <h3>Video Formats (MP4)</h3>
+        <ul>
+        {% for format in formats['video_formats'] %}
+            <li>
+                {{ format.quality }} - {{ format.size }}
+                <form method="POST" action="/download">
+                    <input type="hidden" name="format_id" value="{{ format.format_id }}">
+                    <input type="hidden" name="url" value="{{ video_url }}">
+                    <button type="submit">Download MP4</button>
+                </form>
+            </li>
+        {% endfor %}
+        </ul>
+
+        <!-- Displaying Audio Formats (MP3) -->
+        <h3>Audio Formats (MP3)</h3>
+        <ul>
+        {% for format in formats['audio_formats'] %}
+            <li>
+                MP3 - {{ format.size }}
+                <form method="POST" action="/download">
+                    <input type="hidden" name="format_id" value="{{ format.format_id }}">
+                    <input type="hidden" name="url" value="{{ video_url }}">
+                    <button type="submit">Download MP3</button>
+                </form>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
